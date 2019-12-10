@@ -1,13 +1,13 @@
 const initialdbPath = './API/db.json';
 const dbPath = '/var/data/db.json';
-const dbRoutes = Object.keys(require(dbPath)).map(r => '/' + r);
-const jsonServer = require('json-server');
-const fs = require('fs');
 
+const fs = require('fs');
 if (!fs.existsSync(dbPath)) {
     fs.copyFileSync(initialdbPath, dbPath);
 }
 
+const jsonServer = require('json-server');
+const dbRoutes = Object.keys(require(dbPath)).map(r => '/' + r);
 const server = jsonServer.create();
 const router = jsonServer.router(dbPath);
 const middlewares = jsonServer.defaults({ static: "./build" });
